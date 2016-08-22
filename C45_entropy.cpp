@@ -29,7 +29,6 @@ int main()
 	char attribute_name[STR_BUFFER];
 	double master_entropy, information_gain = 0.0, split_information = 0.0, gain_ratio;
 	std::vector<term> entropy_array;
-	term aux;
 
 	printf("Entropy of the whole set\n");
 	printf("\tNumber of positive and negative instances: ");
@@ -38,7 +37,7 @@ int main()
 	master_entropy = entropy(pos_inst, neg_inst, total_inst);
 	information_gain = master_entropy;
 
-	printf("\nCalculated entropy! Now please input the attribute name: ");
+	printf("\nCalculated entropy! Now please input attribute name: ");
 	scanf(" %[^\n]s", attribute_name);
 	printf("\nPlease input number of possible values for the attribute [%s]: ", attribute_name);
 	scanf("%d", &number_of_values);
@@ -52,9 +51,9 @@ int main()
 		scanf("%d %d", &pos_inst, &neg_inst);
 		printf("\n\n");
 		total_attr = pos_inst + neg_inst;
-		aux.value = entropy(pos_inst, neg_inst, total_attr);
-		aux.num = total_attr;
 		entropy_array[i] = aux;
+		entropy_array[i].value = entropy(pos_inst, neg_inst, total_attr);
+		entropy_array[i].num = total_attr;
 		information_gain -= ((double)total_attr / (double)total_inst) * entropy_array[i].value;
 		split_information += ((double)total_attr / (double)total_inst) * log2(((double)total_attr / (double)total_inst));
 	}
