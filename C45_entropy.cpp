@@ -20,7 +20,7 @@ double entropy(int pos_inst, int neg_inst, int total_inst)
 	double pos_rate = (double)pos_inst / (double) total_inst;
 	double neg_rate = (double)neg_inst / (double) total_inst;
 
-	return pos_inst > 0.0 && neg_inst > 0.0 ? ((-1.0) * pos_rate * log2(pos_rate)) - (neg_rate * log2(neg_rate)) : 0.0;
+	return pos_inst > 0 && neg_inst > 0 ? ((-1.0) * pos_rate * log2(pos_rate)) - (neg_rate * log2(neg_rate)) : 0.0;
 }
 
 int main()
