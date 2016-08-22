@@ -20,7 +20,7 @@ int main()
 {
 	int pos_inst, neg_inst, total_inst, total_attr, number_of_values;
 	char attribute_name[STR_BUFFER];
-	double master_entropy, information_gain = 0.0;
+	double master_entropy, information_gain = 0.0, *entropy_array;
 
 	printf("Entropy of the whole set\n");
 	printf("\tNumber of positive and negative instances: ");
@@ -34,6 +34,8 @@ int main()
 	printf("\nPlease input number of possible values for the attribute [%s]: ", attribute_name);
 	scanf("%d", &number_of_values);
 
+	entropy_array = (double*) malloc(number_of_values * sizeof(double));
+
 	for(int i = 0; i < number_of_values; ++i)
 	{
 		printf("Attribute: %s\n", attribute_name);
@@ -42,13 +44,19 @@ int main()
 		scanf("%d %d", &pos_inst, &neg_inst);
 		printf("\n\n");
 		total_attr = pos_inst + neg_inst;
-		information_gain -= ((double)total_attr / (double)total_inst) * entropy(pos_inst, neg_inst, total_attr);
+		entropy_array[i] = entropy(pos_inst, neg_inst, total_attr);
+		information_gain -= ((double)total_attr / (double)total_inst) * entropy_array[i];
 	}
 
 	printf("\n-------------------------\n");
-	printf("SUMMARY FOR ATTRIBUTE [%s]\n", attribute_name);
-	printf("Entropy = %lf\n", master_entropy);
-	printf("Information gain = %lf\n", information_gain);
+	printf("SUMMARY FOR ATTRIBUTE [%s]\n\n", attribute_name);
+	printf("Set entropy = %.3lf\n", master_entropy);
+	printf("Partial entropies:\n");
+	for (int i = 0; i < number_of_values; ++i)
+		printf("\t%.3lf\n", entropy_array[i]);
+	printf("Information gain = %.3lf\n", information_gain);
+	printf("-------------------------\n");
 
+	free(entropy_array);
 	return 0;
 }
