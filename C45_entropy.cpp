@@ -38,7 +38,7 @@ int main()
 	master_entropy = entropy(pos_inst, neg_inst, total_inst);
 	information_gain = master_entropy;
 
-	printf("\nCalculated entropy! Now please input attribute name: ");
+	printf("\nCalculated entropy! Now please input the attribute name: ");
 	scanf(" %[^\n]s", attribute_name);
 	printf("\nPlease input number of possible values for the attribute [%s]: ", attribute_name);
 	scanf("%d", &number_of_values);
